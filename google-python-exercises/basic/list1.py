@@ -1,4 +1,7 @@
 #!/usr/bin/python -tt
+
+from functools import reduce
+
 # Copyright 2010 Google Inc.
 # Licensed under the Apache License, Version 2.0
 # http://www.apache.org/licenses/LICENSE-2.0
@@ -22,8 +25,11 @@
 # and last chars of the string are the same.
 # Note: python does not have a ++ operator, but += works.
 def match_ends(words):
-    # +++your code here+++
-    return
+    def count_word(count, word):
+        if len(word) >= 2 and word[0] == word[-1]:
+            return count + 1
+        return count
+    return reduce(count_word, words, 0)
 
 
 # B. front_x
@@ -34,8 +40,16 @@ def match_ends(words):
 # Hint: this can be done by making 2 lists and sorting each of them
 # before combining them.
 def front_x(words):
-    # +++your code here+++
-    return
+    has_x = []
+    has_not_x = []
+    for word in words:
+        if word[0] == 'x':
+            has_x.append(word)
+        else:
+            has_not_x.append(word)
+    has_x.sort()
+    has_not_x.sort()
+    return has_x + has_not_x
 
 
 # C. sort_last
@@ -45,8 +59,7 @@ def front_x(words):
 # [(2, 2), (1, 3), (3, 4, 5), (1, 7)]
 # Hint: use a custom key= function to extract the last element form each tuple.
 def sort_last(tuples):
-    # +++your code here+++
-    return
+    return sorted(tuples, key=lambda item: item[-1])
 
 
 # Simple provided test() function used in main() to print
