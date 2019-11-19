@@ -38,6 +38,8 @@ print_words() and print_top().
 """
 
 import sys
+import operator
+import string
 
 
 # +++your code here+++
@@ -46,7 +48,49 @@ import sys
 # and builds and returns a word/count dict for it.
 # Then print_words() and print_top() can just call the utility function.
 
-###
+def it_line(filename):
+    table = str.maketrans(dict.fromkeys(string.punctuation))
+    with open(filename) as f:
+        line = f.readline()
+        while line:
+            line = line.strip()
+            if line != '':
+                yield line.lower().translate(table).split()
+            line = f.readline()
+
+
+def build_result(filename, sort_params):
+    data = {}
+    for line in it_line(filename):
+        for word in line:
+            data[word] = data[word] + 1 if word in data else 1
+    return sorted(data.items(), **sort_params)
+
+
+def gen_words(filename):
+    sort_params = {
+        'key': operator.itemgetter(0)
+    }
+    return build_result(filename, sort_params)
+
+
+def print_words(filename):
+    for key, value in gen_words(filename):
+        print(key, value)
+
+
+def gen_top(filename):
+    sort_params = {
+        'key': operator.itemgetter(1),
+        'reverse': True
+    }
+    return build_result(filename, sort_params)[:20]
+
+
+def print_top(filename):
+    for key, value in gen_top(filename):
+        print(key, value)
+
 
 # This basic command line argument parsing code is provided and
 # calls the print_words() and print_top() functions which you must define.
