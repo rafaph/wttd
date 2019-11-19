@@ -23,13 +23,6 @@ all the words which came after "and" in the text.
 We'll say that the empty string is what comes before
 the first word in the file.
 
-Construa um dicionário "mimic" que mapeia cada palavra que aparece no arquivo
-para uma lista com todas as palavras que seguem imediatamente cada palavra no arquivo.
-A lista palavras pode estar em qualquer ordem e deve incluir duplicatas. Então, por exemplo
-a chave "and" pode ter uma lista de ["then", "best", "then", "after", ...] que lista todas
-as palavras que vem depois de "and" no texto.
-Digamos que uma string vazia é o que vem antes da primeira palavra no arquivo.
-
 With the mimic dict, it's fairly easy to emit random
 text that mimics the original. Print a word, then look
 up what words might come next and pick one at random as
