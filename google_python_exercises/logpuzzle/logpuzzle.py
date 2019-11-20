@@ -9,7 +9,8 @@
 import os
 import re
 import sys
-import urllib
+from urllib import request
+import time
 
 """Logpuzzle exercise
 Given an apache logfile, find the puzzle urls and download the images.
@@ -19,12 +20,35 @@ Here's what a puzzle url looks like:
 """
 
 
+def custom_sort(url):
+    pattern = r'\-\w+\-(\w+)\.jpg$'
+    match = re.search(pattern, url)
+    if match:
+        return match.group(1)
+    return url
+
+
 def read_urls(filename):
     """Returns a list of the puzzle urls from the given log file,
     extracting the hostname from the filename itself.
     Screens out duplicate urls and returns the urls sorted into
     increasing order."""
-    # +++your code here+++
+    urls = []
+    pattern = r'"GET\s(.*puzzle.*)\sHTTP\/\d\.\d"'
+    host = f"http://{filename.split('_')[1]}"
+
+    with open(filename, 'r') as fp:
+        line = fp.readline()
+        while line:
+            match = re.search(pattern, line)
+            if match:
+                path = f'{host}{match.group(1)}'
+                if path in urls:
+                    print(path)
+                else:
+                    urls.append(path)
+            line = fp.readline()
+    return sorted(urls, key=custom_sort)
 
 
 def download_images(img_urls, dest_dir):
@@ -35,7 +59,25 @@ def download_images(img_urls, dest_dir):
     with an img tag to show each local image file.
     Creates the directory if necessary.
     """
-    # +++your code here+++
+    if not os.path.exists(dest_dir):
+        os.mkdir(dest_dir)
+
+    img_paths = []
+    for i, url in enumerate(img_urls):
+        img_path = f'img{i + 1}'
+        request.urlretrieve(url, os.path.join(dest_dir, img_path))
+        img_paths.append(f'<img src="{img_path}">')
+        time.sleep(1)  # wait for 1 second before go to next image
+
+    with open(os.path.join(dest_dir, 'index.html'), 'w') as fp:
+        fp.write(
+            f"""<verbatim>
+<html>
+<body>
+{''.join(img_paths)}
+</body>
+</html>"""
+        )
 
 
 def main():
