@@ -10,19 +10,46 @@
 # https://developers.google.com/edu/python/exercises/copy-special
 
 
-import sys
-import re
+import glob
 import os
 import shutil
 import subprocess
+import sys
 
 """Copy Special exercise
 
 """
 
 
-# +++your code here+++
 # Write functions and modify main() to call them
+
+def iter_special_paths(directory):
+    for filename in glob.glob(os.path.join(directory, '*__*__.*')):
+        yield os.path.abspath(filename)
+
+
+def copy_to(paths, directory):
+    if not os.path.exists(directory):
+        os.mkdir(directory)
+
+    for path in paths:
+        shutil.copy(path, directory)
+
+
+def zip_to(paths, zippath):
+    args = [
+        'zip',
+        '-j',
+        zippath,
+        *paths
+    ]
+    print(f"Command I'm going to do:{' '.join(args)}")
+    try:
+        subprocess.check_output(args)
+    except subprocess.CalledProcessError as error:
+        print(error.output.decode('utf-8'))
+        return error.returncode
+    return 0
 
 
 def main():
@@ -53,8 +80,19 @@ def main():
         print("error: must specify one or more dirs")
         sys.exit(1)
 
-        # +++your code here+++
-        # Call your functions
+    # Call your functions
+
+    for directory in args:
+        paths = iter_special_paths(directory)
+        if todir:
+            copy_to(paths, todir)
+        elif tozip:
+            returncode = zip_to(paths, tozip)
+            if returncode != 0:
+                sys.exit(returncode)
+        else:
+            for special_path in paths:
+                print(special_path)
 
 
 if __name__ == "__main__":
