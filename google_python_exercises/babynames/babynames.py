@@ -35,14 +35,37 @@ Suggested milestones for incremental development:
 """
 
 
+def extract_year(contents):
+    return re.search(r'Popularity\sin\s(\d{4})', contents).group(1)
+
+
+def extract_names_and_rank_as_dict(contents):
+    pattern = r'<tr align="right"><td>(\d+)</td><td>(\w+)</td><td>(\w+)</td>'
+    matches = re.compile(pattern).finditer(contents)
+    data = {}
+    for match in matches:
+        rank, male, female = match.groups()
+        data[male] = rank
+        data[female] = rank
+    return data
+
+
+def generate_name_rank_list(contents):
+    data = extract_names_and_rank_as_dict(contents)
+    return map(lambda key: f'{key} {data[key]}', sorted(data.keys()))
+
+
 def extract_names(filename):
     """
     Given a file name for baby.html, returns a list starting with the year string
     followed by the name-rank strings in alphabetical order.
     ['2006', 'Aaliyah 91', Aaron 57', 'Abagail 895', ' ...]
     """
-    # +++your code here+++
-    return
+    with open(filename, 'r') as fp:
+        contents = fp.read()
+    year = extract_year(contents)
+    names_with_rank = generate_name_rank_list(contents)
+    return [year, *names_with_rank]
 
 
 def main():
@@ -61,9 +84,17 @@ def main():
         summary = True
         del args[0]
 
-        # +++your code here+++
-        # For each filename, get the names, then either print the text output
-        # or write it to a summary file
+    # For each filename, get the names, then either print the text output
+    # or write it to a summary file
+
+    for filename in args:
+        names = extract_names(filename)
+        contents = '\n'.join(names) + '\n'
+        if summary:
+            with open(f'{filename}.summary', 'w') as fp:
+                fp.write(contents)
+        else:
+            print(contents, end='')
 
 
 if __name__ == '__main__':
