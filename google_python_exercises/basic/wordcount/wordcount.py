@@ -50,7 +50,7 @@ import string
 
 def it_line(filename):
     table = str.maketrans(dict.fromkeys(string.punctuation))
-    with open(filename) as f:
+    with open(filename, 'r') as f:
         line = f.readline()
         while line:
             line = line.strip()

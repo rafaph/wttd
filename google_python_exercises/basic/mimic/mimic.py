@@ -77,7 +77,7 @@ def mimic_dict(filename):
             if line_read != '':
                 yield line_read.split()
 
-    with open(filename) as f:
+    with open(filename, 'r') as f:
         lines = f.read()
     result = MimicDict()
     result[''] = []
