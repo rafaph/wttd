@@ -1,5 +1,8 @@
 # Eventex
 
+[![Build Status](https://travis-ci.org/rafaph/wttd.svg?branch=master)](https://travis-ci.org/rafaph/wttd)
+[![Maintainability](https://api.codeclimate.com/v1/badges/2122878c1dd884763c6c/maintainability)](https://codeclimate.com/github/rafaph/wttd/maintainability)
+
 Sistema de Eventos encomendado pela Morena
 
 ## Como desenvolver?
