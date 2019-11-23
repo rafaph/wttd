@@ -3,6 +3,6 @@ plugins:
   pep8:
     enabled: true
 exclude_patterns:
+  - "!**/*.py"
   - "contrib/"
   - "eventex/core/static/"
-  - "!**/*.py"
