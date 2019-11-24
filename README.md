@@ -48,7 +48,7 @@ hora se encontra dentro do intervalo de funcionamento do banco, das
 ```console
 git clone git@github.com:rafaph/wttd.git
 git checkout -b M2A17_1_Entradas_Banco
-git pull origin xyz
+git pull origin M2A17_1_Entradas_Banco
 cd wttd
 python -m unittest bank_entries.tests
 ```
