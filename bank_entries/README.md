@@ -1,7 +1,5 @@
 # Entradas no Banco
 
-[![Build Status](https://travis-ci.org/rafaph/wttd.svg?branch=M2A17_1_Entradas_Banco)](https://travis-ci.org/rafaph/wttd)
-
 ## Descrição
 
 Todas as vezes que alguém passa na porta do maior banco da cidade de

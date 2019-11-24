@@ -3,3 +3,5 @@ python:
   - "3.7.5"
 script:
   - python -m unittest discover bank_entries
+  - python -m unittest discover line_break
+  - python -m unittest discover jokenpo
