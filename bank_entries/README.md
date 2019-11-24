@@ -44,20 +44,21 @@ hora se encontra dentro do intervalo de funcionamento do banco, das
 
 1. Clone o respositório
 2. Instale o Python 3.7.* se não o tiver.
-3. Altere a branch para `M2A17_1_Entradas_Banco`.
+3. Altere a branch para `M2A17`.
 4. Execute os testes.
 
 ```console
 git clone git@github.com:rafaph/wttd.git
-git checkout -b M2A17_1_Entradas_Banco
-git pull origin M2A17_1_Entradas_Banco
+git checkout -b M2A17
+git pull origin M2A17
 cd wttd
-python -m unittest bank_entries.tests
+python -m unittest discover bank_entries
 ```
 
 ## Execução
 
 ```
+cd bank_entries
 python main.py log.txt
 ```
 
