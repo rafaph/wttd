@@ -20,7 +20,7 @@ hora se encontra dentro do intervalo de funcionamento do banco, das
 
 ### Arquivo de entrada (`log.txt`)
 
-```console
+```
 2019-11-23 09:59:59 - Abertura da Porta OK
 2019-11-23 11:00:00 - Abertura da Porta OK
 2019-11-23 16:00:00 - Abertura da Porta OK
@@ -31,11 +31,33 @@ hora se encontra dentro do intervalo de funcionamento do banco, das
 
 ### Saída esperada
 
-```console
-> get_people_entered('log.txt', 23)
-> 2
-> get_people_entered('log.txt', 24)
-> 1
-> get_people_entered('log.txt', 25)
-> 0
 ```
+> get_people_entered('log.txt')
+> 3
+```
+
+# Utilização
+
+## Preparação do ambiente
+
+1. Clone o respositório
+2. Instale o Python 3.7.* se não o tiver.
+3. Altere a branch para `M2A17_1_Entradas_Banco`.
+4. Execute os testes.
+
+```console
+git clone git@github.com:rafaph/wttd.git
+git checkout -b M2A17_1_Entradas_Banco
+git pull origin xyz
+cd wttd
+python -m unittest bank_entries.tests
+```
+
+## Execução
+
+```
+python main.py log.txt
+```
+
+Observação: O arquivo exemplo utilizado é `log.txt` mas você
+pode informar outro arquivo como parâmetro do programa.

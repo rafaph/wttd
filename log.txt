@@ -1,0 +1,6 @@
+2019-11-23 09:59:59 - Abertura da Porta OK
+2019-11-23 11:00:00 - Abertura da Porta OK
+2019-11-23 16:00:00 - Abertura da Porta OK
+2019-11-24 14:00:01 - Abertura da Porta OK
+2019-11-24 16:00:01 - Abertura da Porta OK
+2019-11-25 08:00:09 - Abertura da Porta OK
