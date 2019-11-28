@@ -5,3 +5,4 @@
 __pycache__
 staticfiles
 .wttd
+.ipynb_checkpoints
