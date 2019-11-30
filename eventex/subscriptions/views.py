@@ -1,8 +1,7 @@
 from django.conf import settings
-from django.contrib import messages
 from django.core import mail
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.template.loader import render_to_string
 
 from eventex.subscriptions.forms import SubscriptionForm
@@ -26,21 +25,19 @@ def create(request):
             }
         )
 
+    subscription = Subscription.objects.create(**form.cleaned_data)
+
     _send_mail(
         subject='Confirmação de inscrição',
         from_=settings.DEFAULT_FROM_EMAIL,
-        to=form.cleaned_data['email'],
+        to=subscription.email,
         template_name='subscriptions/subscription_email.txt',
-        context=form.cleaned_data
+        context={
+            'subscription': subscription
+        }
     )
 
-    Subscription.objects.create(**form.cleaned_data)
-
-    messages.success(
-        request,
-        'Inscrição realizada com sucesso!'
-    )
-    return HttpResponseRedirect('/inscricao/')
+    return HttpResponseRedirect(f'/inscricao/{subscription.pk}/')
 
 
 def new(request):
@@ -51,6 +48,13 @@ def new(request):
             'form': SubscriptionForm()
         }
     )
+
+
+def detail(request, pk):
+    subscription = get_object_or_404(Subscription, pk=pk)
+    return render(request, 'subscriptions/subscription_detail.html', {
+        'subscription': subscription
+    })
 
 
 def _send_mail(subject, from_, to, template_name, context):

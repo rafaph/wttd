@@ -29,6 +29,6 @@ class SubscribePostValid(TestCase):
         self.assertEqual(expect, self.email.to)
 
     def test_subscription_email_body(self) -> None:
-        for field_name in self.data.keys():
-            with self.subTest():
+        with self.subTest():
+            for field_name in self.data.keys():
                 self.assertIn(self.data[field_name], self.email.body)
