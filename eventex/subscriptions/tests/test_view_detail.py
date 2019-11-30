@@ -29,7 +29,7 @@ class SubscriptionDetailGet(TestCase):
         self.assertIsInstance(subscription, Subscription)
 
     def test_html(self):
-        contents = model_to_dict(self.obj, exclude=['id']).values()
+        contents = model_to_dict(self.obj, exclude=['id', 'paid']).values()
         with self.subTest():
             for expected in contents:
                 self.assertContains(self.res, expected)
