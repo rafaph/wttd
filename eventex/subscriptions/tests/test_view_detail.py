@@ -1,5 +1,6 @@
 from django.forms import model_to_dict
 from django.test import TestCase
+from django.shortcuts import resolve_url as r
 
 from eventex.subscriptions.models import Subscription
 
@@ -12,7 +13,7 @@ class SubscriptionDetailGet(TestCase):
             email='raphael@castro.net',
             phone='11-93333-3333'
         )
-        self.res = self.client.get(f'/inscricao/{self.obj.pk}/')
+        self.res = self.client.get(r('subscriptions:detail', self.obj.pk))
 
     def test_get(self):
         self.assertEqual(200, self.res.status_code)
@@ -36,5 +37,5 @@ class SubscriptionDetailGet(TestCase):
 
 class SubscriptionDetailNotFound(TestCase):
     def test_not_found(self):
-        res = self.client.get('/inscricao/0/')
+        res = self.client.get(r('subscriptions:detail', 0))
         self.assertEqual(404, res.status_code)
