@@ -26,8 +26,8 @@ class SubscribeGet(TestCase):
             ('type="email"', 1),
             ('type="submit"', 1)
         ]
-        for text, count in tags:
-            with self.subTest():
+        with self.subTest():
+            for text, count in tags:
                 self.assertContains(self.res, text, count)
 
     def test_csrf(self) -> None:
@@ -51,9 +51,8 @@ class SubscribePostValid(TestCase):
         self.res = self.client.post('/inscricao/', self.data)
 
     def test_post(self) -> None:
-        """Valid POST should redirect to /inscricao/"""
-
-        self.assertEqual(302, self.res.status_code)
+        """Valid POST should redirect to /inscricao/1/"""
+        self.assertRedirects(self.res, '/inscricao/1/')
 
     def test_send_subscribe_email(self) -> None:
         self.assertEqual(1, len(mail.outbox))
@@ -83,15 +82,3 @@ class SubscribePostInvalid(TestCase):
 
     def test_dont_save_subscription(self):
         self.assertFalse(Subscription.objects.exists())
-
-
-class SubscribeSuccessMessage(TestCase):
-    def test_message(self):
-        data = dict(
-            name='Raphael Castro',
-            cpf='12345678901',
-            email='raphael@castro.net',
-            phone='19-93333-3333'
-        )
-        response = self.client.post('/inscricao/', data, follow=True)
-        self.assertContains(response, 'Inscrição realizada com sucesso!')
