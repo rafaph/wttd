@@ -1,3 +1,5 @@
+import uuid
+
 from django.forms import model_to_dict
 from django.test import TestCase
 from django.shortcuts import resolve_url as r
@@ -37,5 +39,5 @@ class SubscriptionDetailGet(TestCase):
 
 class SubscriptionDetailNotFound(TestCase):
     def test_not_found(self):
-        res = self.client.get(r('subscriptions:detail', 0))
+        res = self.client.get(r('subscriptions:detail', uuid.uuid4()))
         self.assertEqual(404, res.status_code)
