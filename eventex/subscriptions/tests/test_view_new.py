@@ -53,7 +53,7 @@ class SubscriptionsNewPostValid(TestCase):
 
     def test_post(self) -> None:
         """Valid POST should redirect to /inscricao/1/"""
-        self.assertRedirects(self.res, r('subscriptions:detail', 1))
+        self.assertRedirects(self.res, r('subscriptions:detail', Subscription.objects.first().pk))
 
     def test_send_subscribe_email(self) -> None:
         self.assertEqual(1, len(mail.outbox))
