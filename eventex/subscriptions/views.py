@@ -35,7 +35,7 @@ def create(request):
             }
         )
 
-    subscription = Subscription.objects.create(**form.cleaned_data)
+    subscription = form.save()
 
     _send_mail(
         subject='Confirmação de inscrição',

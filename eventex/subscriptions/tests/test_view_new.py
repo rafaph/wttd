@@ -27,8 +27,9 @@ class SubscriptionsNewGet(TestCase):
             ('type="email"', 1),
             ('type="submit"', 1)
         ]
-        with self.subTest():
-            for text, count in tags:
+
+        for text, count in tags:
+            with self.subTest():
                 self.assertContains(self.res, text, count)
 
     def test_csrf(self) -> None:
