@@ -1,7 +1,7 @@
 from django.db import models
 from django.shortcuts import resolve_url as r
 
-from eventex.core.managers import KindQueryset, PeriodManager
+from eventex.core.managers import KindQuerySet, PeriodManager
 
 
 class Speaker(models.Model):
@@ -33,7 +33,7 @@ class Contact(models.Model):
     kind = models.CharField('tipo', max_length=1, choices=KINDS)
     value = models.CharField('valor', max_length=255)
 
-    objects = KindQueryset.as_manager()
+    objects = KindQuerySet.as_manager()
 
     def __str__(self):
         return self.value
